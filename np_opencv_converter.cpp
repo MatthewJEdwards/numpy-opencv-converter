@@ -38,6 +38,8 @@ bool init_and_export_converters() {
   expose_template_type< std::vector<cv::Point> >();
   expose_template_type< std::vector<cv::Point2f> >();
   expose_template_type< std::vector<cv::KeyPoint> >();
+
+  expose_template_type<std::vector<std::vector<cv::Point2f> > >();
   
   expose_template_type< std::vector<cv::Mat> >();
   expose_template_type< std::vector<cv::Mat1b > >();

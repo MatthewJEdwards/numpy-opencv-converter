@@ -1,3 +1,7 @@
+This fork updates the conversion code to work with OpenCV 3.  Tested with OpenCV
+3.0.0, Python 2.7.6, Ubuntu 14.04.3.
+
+
 ## NUMPY <=> OpenCV's cv::Mat converter
 [Sudeep Pillai](http://people.csail.mit.edu/spillai) (spillai@csail.mit.edu) Sep 14, 2014
 

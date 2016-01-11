@@ -7,6 +7,7 @@
 #include <Python.h>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/core.hpp>
+#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION
 #include <numpy/ndarrayobject.h>
 
 static PyObject* opencv_error = 0;
@@ -55,7 +56,7 @@ private:
     void init();
 public:
     NDArrayConverter();
-    cv::Mat toMat(const PyObject* o);
+    cv::Mat toMat(PyObject* o);
     PyObject* toNDArray(const cv::Mat& mat);
 };
 
