@@ -2,7 +2,7 @@
 // License: BSD
 // Last modified: Sep 14, 2014
 
-#include "np_opencv_converter.hpp"
+#include "numpy_opencv_converter.h"
 
 namespace fs { namespace python {
 

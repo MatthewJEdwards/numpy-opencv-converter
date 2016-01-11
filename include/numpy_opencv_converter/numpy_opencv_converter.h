@@ -10,9 +10,9 @@
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
 // Include templated conversion utils
-#include "utils/template.h"
-#include "utils/container.h"
-#include "utils/conversion.h"
+#include "template.h"
+#include "container.h"
+#include "conversion.h"
 
 // opencv includes
 #include <opencv2/opencv.hpp>
