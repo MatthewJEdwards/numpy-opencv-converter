@@ -5,11 +5,13 @@ This fork updates the conversion code to work with OpenCV 3.  Tested with OpenCV
 ## NUMPY <=> OpenCV's cv::Mat converter
 [Sudeep Pillai](http://people.csail.mit.edu/spillai) (spillai@csail.mit.edu) Sep 14, 2014
 
-A convenience library that registers a boost::python converter to implicitly
-convert between OpenCV's popular cv::Mat datatype and NumPy's popular
-np.array() datatype. This allows a developer to go back and forth between their
-OpenCV C++ API and Python API written using NumPy with relative ease, avoiding the need to
-write additional wrappers that handle PyObjects being passed around or returned. 
+A convenience library that registers boost::python converters to implicitly
+convert between OpenCV's cv::Mat datatype and NumPy's np.array() datatype. This
+allows a developer to go back and forth between their OpenCV C++ API and Python
+API written using NumPy with relative ease, avoiding the need to write
+additional wrappers that handle PyObjects being passed around or returned.
+
+Converters for various C++ standard library containers are also implemented.
 
 This work was mostly inspired by
 https://github.com/yati-sagade/opencv-ndarray-conversion. 
