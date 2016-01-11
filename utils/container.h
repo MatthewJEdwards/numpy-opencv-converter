@@ -62,19 +62,18 @@ struct expose_template_type< std::vector<T> > :
     
   static void construct( PyObject * py_obj, py::converter::rvalue_from_python_stage1_data* data)
   {
-    using namespace boost::python;
-    typedef converter::rvalue_from_python_storage< wrapped_type > storage_t;
+    typedef py::converter::rvalue_from_python_storage< wrapped_type > storage_t;
         
     storage_t* the_storage = reinterpret_cast<storage_t*>( data );
     void* memory_chunk = the_storage->storage.bytes;
     wrapped_type * newvec = new (memory_chunk) wrapped_type;
     data->convertible = memory_chunk;
 
-    object sequence(handle<>( borrowed( py_obj ) ) );
+    py::object sequence(py::handle<>( py::borrowed( py_obj ) ) );
 
     for(int idx = 0; idx < len(sequence);idx++)
     {
-      newvec->push_back( extract<T>( sequence[idx] )() );
+      newvec->push_back( py::extract<T>( sequence[idx] )() );
     }
 
   }
@@ -124,15 +123,14 @@ template<typename Key, typename Value>
     
   static void construct( PyObject * py_obj, py::converter::rvalue_from_python_stage1_data* data)
   {
-    using namespace boost::python;
-    typedef converter::rvalue_from_python_storage< wrapped_type > storage_t;
+    typedef py::converter::rvalue_from_python_storage< wrapped_type > storage_t;
         
     storage_t* the_storage = reinterpret_cast<storage_t*>( data );
     void* memory_chunk = the_storage->storage.bytes;
     wrapped_type * newvec = new (memory_chunk) wrapped_type;
     data->convertible = memory_chunk;
 
-    object sequence(handle<>( borrowed( py_obj ) ) );
+    py::object sequence(py::handle<>( py::borrowed( py_obj ) ) );
     sequence = sequence.attr("items")();
 
     for(int idx = 0; idx < len(sequence);idx++)
@@ -177,17 +175,16 @@ template<typename Key, typename Value>
     
   static void construct( PyObject * py_obj, py::converter::rvalue_from_python_stage1_data* data)
   {
-    using namespace boost::python;
-    typedef converter::rvalue_from_python_storage< wrapped_type > storage_t;
+    typedef py::converter::rvalue_from_python_storage< wrapped_type > storage_t;
         
     storage_t* the_storage = reinterpret_cast<storage_t*>( data );
     void* memory_chunk = the_storage->storage.bytes;
     wrapped_type * newvec = new (memory_chunk) wrapped_type;
     data->convertible = memory_chunk;
 
-    object sequence(handle<>( borrowed( py_obj ) ) );
-    newvec->first = extract<Key>(sequence[0])();
-    newvec->second = extract<Value>(sequence[1])();
+    py::object sequence(py::handle<>( py::borrowed( py_obj ) ) );
+    newvec->first = py::extract<Key>(sequence[0])();
+    newvec->second = py::extract<Value>(sequence[1])();
   }
 
 };

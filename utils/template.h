@@ -5,6 +5,9 @@
 #define PYXX_TEMPLATE_H
 
 #include <boost/python.hpp>
+
+namespace py = boost::python;
+
 /*
  * Provides template support
  */
@@ -20,9 +23,7 @@ struct expose_template_type_base
 {
     bool wrapped()
     {
-        using namespace boost::python::converter;
-        using namespace boost::python;
-        registration const * p = registry::query( type_id<TemplateType>() );
+        py::converter::registration const * p = py::converter::registry::query( py::type_id<TemplateType>() );
         return p && (p->m_class_object || p->m_to_python);
     }
 

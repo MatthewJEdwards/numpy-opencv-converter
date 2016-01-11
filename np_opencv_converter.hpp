@@ -72,10 +72,10 @@ struct Mat_PyObject_converter
 {
   // Register from converter
   Mat_PyObject_converter() {
-    boost::python::converter::registry::push_back(
+    py::converter::registry::push_back(
         &convertible,
         &construct,
-        boost::python::type_id<T>());
+        py::type_id<T>());
 
     // Register to converter
     py::to_python_converter<T, Mat_to_PyObject<T> >();
@@ -92,10 +92,9 @@ struct Mat_PyObject_converter
 
   // Convert obj_ptr into a cv::Mat
   static void construct(PyObject* obj_ptr,
-                        boost::python::converter::rvalue_from_python_stage1_data* data)
+                        py::converter::rvalue_from_python_stage1_data* data)
   {
-    using namespace boost::python;
-    typedef converter::rvalue_from_python_storage< T > storage_t;
+    typedef py::converter::rvalue_from_python_storage< T > storage_t;
 
     storage_t* the_storage = reinterpret_cast<storage_t*>( data );
     void* memory_chunk = the_storage->storage.bytes;
