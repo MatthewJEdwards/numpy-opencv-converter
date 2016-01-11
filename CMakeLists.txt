@@ -2,28 +2,32 @@
 project (numpy_opencv_converter)
 cmake_minimum_required (VERSION 2.6.0)
 
-# Include package config, boost-python
-find_package(PkgConfig REQUIRED)
-include(cmake/boost-python.cmake)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpic")
 
-# configure opencv
-pkg_check_modules(OpenCV opencv)
+find_package(Boost REQUIRED COMPONENTS system python)
+find_package(OpenCV REQUIRED)
+find_package(PythonLibs REQUIRED)
+
 include_directories(
-	${PROJECT_SOURCE_DIR}/include/numpy_opencv_converter/
-	${OpenCV_INCLUDE_DIRS}
+  ${PROJECT_SOURCE_DIR}/include/numpy_opencv_converter/
+  ${Boost_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIR}
+  ${PYTHON_INCLUDE_DIRS}
 )
 
-# Build np<=>opencv converter library
-boost_python_module(${PROJECT_NAME} src/numpy_opencv_converter.cpp src/conversion.cpp)
+add_library(${PROJECT_NAME} src/numpy_opencv_converter.cpp src/conversion.cpp)
 target_link_libraries(${PROJECT_NAME} 
-	boost_system boost_python 
-	${OpenCV_LDFLAGS}
+  ${Boost_LIBRARIES}
+  ${OpenCV_LIBS}
+  ${PYTHON_LIBRARIES}
 )
 
-# Expose public includes (including OpenCV transitively) to other
+# Expose public includes (including dependencies transitively) to other
 # subprojects through cache variable
 set(${PROJECT_NAME}_INCLUDE_DIRS 
   ${PROJECT_SOURCE_DIR}/include
-  ${OpenCV_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIR}
+  ${PYTHON_INCLUDE_DIRS}
   CACHE INTERNAL "${PROJECT_NAME}: Include Directories" FORCE
 )
